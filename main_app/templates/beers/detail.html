@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>List of Beers</h1>
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ beer.name }}</span>
+        <p>Type: {{ beer.type }}</p>
+        <p>Origin: {{ beer.origin }}</p>
+        <p>Alcohol Percent: {{ beer.alcPercent }}</p>
+        {% if beer.abuLevel > 6 %}
+            <p>Bitter Level: High</p>
+        {% else %}
+            <p>Bitter Level: Low</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,20 +1,5 @@
 from django.shortcuts import render
-
-# Beer class
-class Beer:
-    def __init__(self, name, type, alcPercent, abuLevel, nationality):
-        self.name = name
-        self.type = type
-        self.alcPercent = alcPercent
-        self.abuLevel = abuLevel
-        self.nationality = nationality
-
-# Create some beers
-beers = [
-    Beer('Lagunitas', 'IPA', '7.6%', 8, 'India'),
-    Beer('California Lager', 'Lager', '4.2%', 3, 'Germany'),
-    Beer('Hefeweizen', 'Wheat', '5%', 4, 'Belgium')
-]
+from .models import Beer
 
 # Create your views here.
 def home(request):
@@ -24,4 +9,9 @@ def about(request):
     return render(request, 'about.html')
 
 def beers_index(request):
+    beers = Beer.objects.all(); 
     return render(request, 'beers/index.html', {'beers': beers})
+
+def beers_detail(request, beer_id):
+    beer = Beer.objects.get(id=beer_id)
+    return render(request, 'beers/detail.html', {'beer': beer})
