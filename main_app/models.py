@@ -30,5 +30,7 @@ class Drinking(models.Model):
         default=DRINKS[0][0]
     )
 
+    beer = models.ForeignKey(Beer, on_delete=models.CASCADE)
+
     def __str__(self) -> str:
         return f'{self.get_drink_display()} on {self.date}'
