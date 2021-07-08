@@ -1,6 +1,12 @@
 from django.db import models
 from django.urls import reverse
 
+DRINKS = (
+    ('M', 'Morning Drink')
+    ('A', 'Afternoon Drink')
+    ('N', 'Night Drink')
+)
+
 # Create your models here.
 class Beer(models.Model):
     name = models.CharField(max_length=100)
@@ -14,3 +20,7 @@ class Beer(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'beer_id': self.id})
+
+class Drinking(models.Model):
+    date = models.DateField()
+    meal = models.CharField(max_length=1)
