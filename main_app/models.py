@@ -2,8 +2,8 @@ from django.db import models
 from django.urls import reverse
 
 DRINKS = (
-    ('M', 'Morning Drink')
-    ('A', 'Afternoon Drink')
+    ('M', 'Morning Drink'),
+    ('A', 'Afternoon Drink'),
     ('N', 'Night Drink')
 )
 
