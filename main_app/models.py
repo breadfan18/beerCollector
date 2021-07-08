@@ -22,7 +22,7 @@ class Beer(models.Model):
         return reverse('detail', kwargs={'beer_id': self.id})
 
 class Drinking(models.Model):
-    date = models.DateField()
+    date = models.DateField('drinking date')
     drink = models.CharField(
         max_length=1,
         choices=DRINKS,
