@@ -23,4 +23,12 @@ class Beer(models.Model):
 
 class Drinking(models.Model):
     date = models.DateField()
-    meal = models.CharField(max_length=1)
+    drink = models.CharField(
+        max_length=1,
+        choices=DRINKS,
+        # default sets the defauly value to the first one, which is M in DRINKS
+        default=DRINKS[0][0]
+    )
+
+    def __str__(self) -> str:
+        return f'{self.get_drink_display()} on {self.date}'
