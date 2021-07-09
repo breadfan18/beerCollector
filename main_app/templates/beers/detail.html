@@ -31,7 +31,7 @@
         </form>
         <br>
         {% if beer.drunk_for_today %}
-            <div class="card-panel teal-text center-align">You have drunk enough drinks of {{ beer.name }} for the day.</div>
+            <div class="card-panel teal-text center-align">You have drunk enough {{ beer.name }} for today. CHILL OUT!</div>
         {% else %}
             <div class="card-panel red-text center-align">Drink more {{ beer.name }}. BOTTOMS UP!</div>
         {% endif %}
