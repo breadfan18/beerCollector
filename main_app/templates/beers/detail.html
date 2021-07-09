@@ -29,6 +29,13 @@
             {{ drinking_form.as_p }}
             <input type="submit" class="btn" value="Add Drink">
         </form>
+        <br>
+        {% if beer.drunk_for_today %}
+            <div class="card-panel teal-text center-align">You have drunk enough drinks of {{ beer.name }} for the day.</div>
+        {% else %}
+            <div class="card-panel red-text center-align">Drink more {{ beer.name }}. BOTTOMS UP!</div>
+        {% endif %}
+        
         <table class="striped">
             <thead>
                 <tr>

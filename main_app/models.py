@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 DRINKS = (
     ('M', 'Morning Drink'),
@@ -20,6 +21,9 @@ class Beer(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'beer_id': self.id})
+    
+    def drunk_for_today(self):
+        return self.drinking_set.filter(date=date.today()).count() >= len(DRINKS)
 
 class Drinking(models.Model):
     date = models.DateField('drinking date')
