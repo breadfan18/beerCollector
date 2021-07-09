@@ -1,22 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>List of Beers</h1>
-<div class="card">
-    <div class="card-content">
-        <span class="card-title">{{ beer.name }}</span>
-        <p>Type: {{ beer.type }}</p>
-        <p>Origin: {{ beer.origin }}</p>
-        <p>Alcohol Percent: {{ beer.alcPercent }}</p>
-        {% if beer.abuLevel > 6 %}
-            <p>Bitter Level: High</p>
-        {% else %}
-            <p>Bitter Level: Low</p>
-        {% endif %}
+<h1>Beer Details</h1>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ beer.name }}</span>
+                <p>Type: {{ beer.type }}</p>
+                <p>Origin: {{ beer.origin }}</p>
+                <p>Alcohol Percent: {{ beer.alcPercent }}</p>
+                {% if beer.abuLevel > 6 %}
+                <p>Bitter Level: High</p>
+                {% else %}
+                <p>Bitter Level: Low</p>
+                {% endif %}
+            </div>
+            <div class="card-action">
+                <a href="{% url 'beers_update' beer.id %}">Edit</a>
+                <a href="{% url 'beers_delete' beer.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-    <div class="card-action">
-        <a href="{% url 'beers_update' beer.id %}">Edit</a>
-        <a href="{% url 'beers_delete' beer.id %}">Delete</a>
+    <div class="col s6">
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Drink</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drinking in beer.drinking_set.all %}
+                    <tr>
+                        <td>{{ drinking.date }}</td>
+                        <td>{{ drinking.get_drink_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}
