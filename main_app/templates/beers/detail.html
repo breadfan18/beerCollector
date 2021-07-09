@@ -47,4 +47,21 @@
         </table>
     </div>
 </div>
+
+<script>
+    // Elements
+    let dateEl = document.getElementById('id_date');
+    let selectEl = document.querySelector('#id_drink');
+
+    // Initialize the date field with datepicker
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+
+    // Initialize the select field 
+    M.FormSelect.init(selectEl)
+</script>
 {% endblock %}
