@@ -1,5 +1,5 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Beer
 from main_app import models
 from .forms import DrinkingForm
@@ -23,6 +23,18 @@ def beers_detail(request, beer_id):
         'beer': beer,
         'drinking_form': drinking_form
     })
+
+def add_drinking(request, beer_id):
+    # Create the model form using the data in the request.POST
+    form = DrinkingForm(request.POST)
+    # validate the form
+    if form.is_valid():
+        # don't save the form to the db unitl it has the beer_id assigned.
+        # commit=False means we save it in memory, without actually storing in the db
+        new_drinking = form.save(commit=False)
+        new_drinking.beer_id = beer_id
+        new_drinking.save()
+    return redirect('detail', beer_id=beer_id)
 
 class BeerCreate(CreateView):
     model = Beer

@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="col s6">
-        <form action="" method="POST">
+        <form action="{% url 'add_drinking' beer.id %}" method="POST">
             {% csrf_token %}
             {{ drinking_form.as_p }}
             <input type="submit" class="btn" value="Add Drink">
@@ -50,7 +50,7 @@
 
 <script>
     // Elements
-    let dateEl = document.getElementById('id_date');
+    let dateEl = document.querySelector('#id_date');
     let selectEl = document.querySelector('#id_drink');
 
     // Initialize the date field with datepicker
