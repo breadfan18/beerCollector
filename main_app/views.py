@@ -49,9 +49,6 @@ class BeerDelete(DeleteView):
     model = Beer
     success_url = '/beers/'
 
-
-
-
 class AwardList(ListView):
   model = Award
 
