@@ -14,4 +14,6 @@ urlpatterns = [
     path('awards/', views.AwardList.as_view(), name='awards_index'),
     path('awards/<int:pk>/', views.AwardDetail.as_view(), name='awards_detail'),
     path('awards/create/', views.AwardCreate.as_view(), name='awards_create'),
+    path('awards/<int:pk>/update', views.AwardUpdate.as_view(), name='awards_update'),
+    path('awards/<int:pk>/delete', views.AwardDelete.as_view(), name='awards_delete')
 ]

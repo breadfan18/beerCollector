@@ -11,8 +11,8 @@
                     <p>Color: {{ award.color }}</p>
                 </div>
                 <div class="card-action">
-                    <a href="">Edit</a>
-                    <a href="">Delete</a>
+                    <a href="{% url 'awards_update' award.id %}">Edit</a>
+                    <a href="{% url 'awards_delete' award.id %}">Delete</a>
                 </div>
             </div>
         </div>
