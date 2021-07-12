@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import redirect, render
-from .models import Beer
+from .models import Beer, Award
 from main_app import models
 from .forms import DrinkingForm
 
@@ -47,3 +48,6 @@ class BeerUpdate(UpdateView):
 class BeerDelete(DeleteView):
     model = Beer
     success_url = '/beers/'
+
+class AwardList(ListView):
+    model = Award

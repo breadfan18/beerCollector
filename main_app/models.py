@@ -38,3 +38,14 @@ class Drinking(models.Model):
 
     def __str__(self) -> str:
         return f'{self.get_drink_display()} on {self.date}'
+
+
+class Award(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'beer_id': self.id})
