@@ -12,5 +12,6 @@ urlpatterns = [
     path('beers/<int:beer_id>/add_drinking', views.add_drinking, name='add_drinking'),
 
     path('awards/', views.AwardList.as_view(), name='awards_index'),
+    path('awards/<int:pk>/', views.AwardDetail.as_view(), name='awards_detail'),
     path('awards/create/', views.AwardCreate.as_view(), name='awards_create'),
 ]
