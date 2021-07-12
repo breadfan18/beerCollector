@@ -49,5 +49,23 @@ class BeerDelete(DeleteView):
     model = Beer
     success_url = '/beers/'
 
+
+
+
 class AwardList(ListView):
-    model = Award
+  model = Award
+
+class AwardDetail(DetailView):
+  model = Award
+
+class AwardCreate(CreateView):
+  model = Award
+  fields = '__all__'
+
+class AwardUpdate(UpdateView):
+  model = Award
+  fields = ['name', 'color']
+
+class AwardDelete(DeleteView):
+  model = Award
+  success_url = '/awards/'
