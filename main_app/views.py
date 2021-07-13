@@ -18,11 +18,13 @@ def beers_index(request):
 
 def beers_detail(request, beer_id):
     beer = Beer.objects.get(id=beer_id)
+    awards_beer_doesnt_have = Award.objects.exclude(id__in = beer.awards.all().values_list('id'))
     # instantiate the Drinking Form
     drinking_form = DrinkingForm()
     return render(request, 'beers/detail.html', {
         'beer': beer,
-        'drinking_form': drinking_form
+        'drinking_form': drinking_form,
+        'awards': awards_beer_doesnt_have
     })
 
 def add_drinking(request, beer_id):
