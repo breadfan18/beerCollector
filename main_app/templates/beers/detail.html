@@ -72,7 +72,30 @@
             <h5>No Awards :(</h5>
         {% endif %}
     </div>
+    <div class="col s6">
+        <h3>Available Awards</h3>
+        {% if awards.count %}
+            {% for award in awards.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <span>{{award.color}} {{award.name}}</span>
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Add</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>{{ beer.name }} already has all the awards</h5>
+        {% endif %}
+    </div>
 </div>
+
 
 <script>
     // Elements
