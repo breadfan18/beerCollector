@@ -2,11 +2,22 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 
+
 DRINKS = (
     ('M', 'Morning Drink'),
     ('A', 'Afternoon Drink'),
     ('N', 'Night Drink')
 )
+
+class Award(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('awards_detail', kwargs={'pk': self.id})
 
 # Create your models here.
 class Beer(models.Model):
@@ -15,6 +26,7 @@ class Beer(models.Model):
     alcPercent = models.CharField(max_length=10)
     abuLevel = models.IntegerField()
     origin = models.CharField(max_length=30)
+    awards = models.ManyToManyField(Award)
 
     def __str__(self):
         return self.name
@@ -38,14 +50,3 @@ class Drinking(models.Model):
 
     def __str__(self) -> str:
         return f'{self.get_drink_display()} on {self.date}'
-
-
-class Award(models.Model):
-    name = models.CharField(max_length=50)
-    color = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('awards_detail', kwargs={'pk': self.id})
