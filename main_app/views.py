@@ -32,7 +32,7 @@ def add_drinking(request, beer_id):
     form = DrinkingForm(request.POST)
     # validate the form
     if form.is_valid():
-        # don't save the form to the db unitl it has the beer_id assigned.
+        # don't save the form to the db until it has the beer_id assigned.
         # commit=False means we save it in memory, without actually storing in the db
         new_drinking = form.save(commit=False)
         new_drinking.beer_id = beer_id

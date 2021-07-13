@@ -15,5 +15,8 @@ urlpatterns = [
     path('awards/<int:pk>/', views.AwardDetail.as_view(), name='awards_detail'),
     path('awards/create/', views.AwardCreate.as_view(), name='awards_create'),
     path('awards/<int:pk>/update', views.AwardUpdate.as_view(), name='awards_update'),
-    path('awards/<int:pk>/delete', views.AwardDelete.as_view(), name='awards_delete')
+    path('awards/<int:pk>/delete', views.AwardDelete.as_view(), name='awards_delete'),
+
+    # Associate the award with the beer 
+    path('beers/<int:beer_id>/assoc_award/<int:award_id>/', views.assoc_award, name='assoc_award')
 ]
