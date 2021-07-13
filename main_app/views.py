@@ -39,6 +39,11 @@ def add_drinking(request, beer_id):
         new_drinking.save()
     return redirect('detail', beer_id=beer_id)
 
+
+def assoc_award(request, beer_id, award_id):
+    Beer.objects.get(id=beer_id).awards.add(award_id)
+    return redirect('detail', beer_id=beer_id)
+
 class BeerCreate(CreateView):
     model = Beer
     fields = '__all__'
