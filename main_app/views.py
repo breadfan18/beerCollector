@@ -62,6 +62,7 @@ def add_photo(request, beer_id):
         except Exception as error:
             print('An error has occurred while uploading the file to S3');
             print(error)
+    return redirect('detail', beer_id=beer_id)
 
 def assoc_award(request, beer_id, award_id):
     Beer.objects.get(id=beer_id).awards.add(award_id)
