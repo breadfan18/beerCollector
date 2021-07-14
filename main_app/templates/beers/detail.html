@@ -21,7 +21,15 @@
           <a href="{% url 'beers_delete' beer.id %}">Delete</a>
         </div>
       </div>
+      
+      {% for photo in beer.photo_set.all %}
+        <img src="{{ photo.url }}" alt="" class="responsive-img card-panel">
+      {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+
     </div>
+
     <div class="col s6">
       <form action="{% url 'add_drinking' beer.id %}" method="post">
         {% csrf_token %}
