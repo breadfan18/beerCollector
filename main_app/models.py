@@ -36,6 +36,14 @@ class Beer(models.Model):
     
     def drunk_for_today(self):
         return self.drinking_set.filter(date=date.today()).count() >= len(DRINKS)
+    
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    beer = models.ForeignKey(Beer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Photo for beer_id: {self.beer_id} @{self.url}'
 
 class Drinking(models.Model):
     date = models.DateField('drinking date')
