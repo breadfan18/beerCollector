@@ -11,6 +11,9 @@ urlpatterns = [
     path('beers/<int:pk>/delete/', views.BeerDelete.as_view(), name='beers_delete'),
     path('beers/<int:beer_id>/add_drinking', views.add_drinking, name='add_drinking'),
 
+    # path for adding photo
+    path('beers/<int: beer_id>/add_photo', views.add_photo, name='add_photo'),
+
     path('awards/', views.AwardList.as_view(), name='awards_index'),
     path('awards/<int:pk>/', views.AwardDetail.as_view(), name='awards_detail'),
     path('awards/create/', views.AwardCreate.as_view(), name='awards_create'),
