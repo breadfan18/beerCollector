@@ -4,128 +4,132 @@
 <h1>Beer Details</h1>
 
 <div class="row">
-    <div class="col s6">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">{{ beer.name }}</span>
-          <p>Breed: {{ beer.breed }}</p>
-          <p>Description: {{ beer.description }}</p>
-          {% if beer.age > 0 %}
-            <p>Age: {{ beer.age }}</p>
-          {% else %}
-            <p>Age: Kitten</p>
-          {% endif %}
-        </div>
-        <div class="card-action">
-          <a href="{% url 'beers_update' beer.id %}">Edit</a>
-          <a href="{% url 'beers_delete' beer.id %}">Delete</a>
-        </div>
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ beer.name }}</span>
+        <p>Breed: {{ beer.breed }}</p>
+        <p>Description: {{ beer.description }}</p>
+        {% if beer.age > 0 %}
+        <p>Age: {{ beer.age }}</p>
+        {% else %}
+        <p>Age: Kitten</p>
+        {% endif %}
       </div>
-      
-      {% for photo in beer.photo_set.all %}
-        <img src="{{ photo.url }}" alt="" class="responsive-img card-panel">
-      {% empty %}
-        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-      {% endfor %}
-
-      <form action="{% url 'add_photo' beer.id %}">
-        {% csrf_token %}
-        <input type="file" name='photo-file'>
-        <br>
-        <br>
-        <input type="submit" class="btn" value="Upload Photo">
-      </form>
+      <div class="card-action">
+        <a href="{% url 'beers_update' beer.id %}">Edit</a>
+        <a href="{% url 'beers_delete' beer.id %}">Delete</a>
+      </div>
     </div>
 
-    <div class="col s6">
-      <form action="{% url 'add_drinking' beer.id %}" method="post">
-        {% csrf_token %}
-        {{ drinking_form.as_p }}
-        <input type="submit" class="btn" value="Add drinking">
-      </form>
-      <br>
-      {% if beer.fed_for_today %}
-        <div class="card-panel teal-text center-align">{{beer.name}} has been fed all meals for today</div>
-      {% else %}
-        <div class="card-panel red-text center-align">{{beer.name}} might be hungry</div>
-      {% endif %}
-      <table class="striped">
-        <thead>
-          <tr><th>Date</th><th>Meal</th></tr>
-        </thead>
-        <tbody>
-          {% for drinking in beer.drinking_set.all %}
-            <tr>
-              <td>{{drinking.date}}</td>
-              <td>{{drinking.get_meal_display}}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+    {% for photo in beer.photo_set.all %}
+    <img src="{{ photo.url }}" alt="" class="responsive-img card-panel">
+    {% empty %}
+    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+
+        <form action="{% url 'add_photo' beer.id %}" method="POST" enctype="multipart/form-data" class="card-panel">
+          {% csrf_token %}
+          <input type="file" name='photo-file'>
+          <br>
+          <br>
+          <input type="submit" class="btn" value="Upload Photo">
+        </form>
   </div>
-  <hr>
-  <div class="row">
-    <div class="col s6">
-      <h3>{{ beer.name }}'s awards</h3>
-      {% if beer.awards.count %}
-        {% for award in beer.awards.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">A<span style="color: {{ award.color }}"> {{ award.color }}</span> {{ award.name }}</span>
-            </div>
-            <div class="card-action">
-              <form action="{% url 'unassoc_award' beer.id award.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">Remove</button>
-              </form>
-            </div>
-          </div>
+
+  <div class="col s6">
+    <form action="{% url 'add_drinking' beer.id %}" method="post">
+      {% csrf_token %}
+      {{ drinking_form.as_p }}
+      <input type="submit" class="btn" value="Add drinking">
+    </form>
+    <br>
+    {% if beer.fed_for_today %}
+    <div class="card-panel teal-text center-align">{{beer.name}} has been fed all meals for today</div>
+    {% else %}
+    <div class="card-panel red-text center-align">{{beer.name}} might be hungry</div>
+    {% endif %}
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Meal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for drinking in beer.drinking_set.all %}
+        <tr>
+          <td>{{drinking.date}}</td>
+          <td>{{drinking.get_meal_display}}</td>
+        </tr>
         {% endfor %}
-      {% else %}
-          <h5>No awards :(</h5>
-      {% endif %}
-    </div>
-    <div class="col s6">
-      <h3>Available awards</h3>
-      {% if awards.count %}
-        {% for award in awards.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">
-                A <span style="color: {{ award.color }}">{{ award.color }}</span> {{ award.name }}
-              </span>
-            </div>
-            <div class="card-action">
-              <form action="{% url 'assoc_award' beer.id award.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">Add</button>
-              </form>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <h5>{{beer.name}} Already Has All awards Available</h5>
-      {% endif %}
-    </div>
+      </tbody>
+    </table>
   </div>
-  
+</div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ beer.name }}'s awards</h3>
+    {% if beer.awards.count %}
+    {% for award in beer.awards.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">A<span style="color: {{ award.color }}"> {{ award.color }}</span>
+          {{ award.name }}</span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'unassoc_award' beer.id award.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Remove</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No awards :(</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available awards</h3>
+    {% if awards.count %}
+    {% for award in awards.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ award.color }}">{{ award.color }}</span> {{ award.name }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_award' beer.id award.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>{{beer.name}} Already Has All awards Available</h5>
+    {% endif %}
+  </div>
+</div>
+
 
 
 <script>
-    // Elements
-    let dateEl = document.querySelector('#id_date');
-    let selectEl = document.querySelector('#id_drink');
+  // Elements
+  let dateEl = document.querySelector('#id_date');
+  let selectEl = document.querySelector('#id_drink');
 
-    // Initialize the date field with datepicker
-    M.Datepicker.init(dateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    });
+  // Initialize the date field with datepicker
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
 
-    // Initialize the select field 
-    M.FormSelect.init(selectEl)
+  // Initialize the select field 
+  M.FormSelect.init(selectEl)
 </script>
 {% endblock %}

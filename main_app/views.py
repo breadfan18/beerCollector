@@ -51,7 +51,7 @@ def add_photo(request, beer_id):
     if photo_file:
         s3 = boto3.client('s3')
         # the following key is to generate a unique key for s3, that will be appended to each img url
-        key = uuid.uuid4.hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
             # build out the fill url string
