@@ -7,8 +7,7 @@ from .forms import DrinkingForm
 import boto3
 import uuid
 
-
-S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com'
 BUCKET = 'beer-collector-swaroop'
 
 # Create your views here.
@@ -47,7 +46,22 @@ def add_drinking(request, beer_id):
 
 
 def add_photo(request, beer_id):
-    pass
+    # photo-file will be the 'name' attribute on the <input type='file'>
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # the following key is to generate a unique key for s3, that will be appended to each img url
+        key = uuid.uuid4.hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build out the fill url string
+            url = f'{S3_BASE_URL}/{BUCKET}/{key}'
+            # assign photo to a beer_id or beer and save it to db
+            photo = Photo(url=url, beer_id=beer_id)
+            photo.save()
+        except Exception as error:
+            print('An error has occurred while uploading the file to S3');
+            print(error)
 
 def assoc_award(request, beer_id, award_id):
     Beer.objects.get(id=beer_id).awards.add(award_id)
