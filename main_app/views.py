@@ -1,9 +1,11 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.shortcuts import redirect, render
-from .models import Beer, Award
+from .models import Beer, Award, Photo
 from main_app import models
 from .forms import DrinkingForm
+import boto3
+import uuid
 
 # Create your views here.
 def home(request):
@@ -38,6 +40,9 @@ def add_drinking(request, beer_id):
         new_drinking.beer_id = beer_id
         new_drinking.save()
     return redirect('detail', beer_id=beer_id)
+
+
+def add_photo(request, beer_id):
 
 
 def assoc_award(request, beer_id, award_id):
