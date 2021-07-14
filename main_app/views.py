@@ -7,6 +7,10 @@ from .forms import DrinkingForm
 import boto3
 import uuid
 
+
+S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
+BUCKET = 'beer-collector-swaroop'
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -43,7 +47,7 @@ def add_drinking(request, beer_id):
 
 
 def add_photo(request, beer_id):
-
+    pass
 
 def assoc_award(request, beer_id, award_id):
     Beer.objects.get(id=beer_id).awards.add(award_id)
