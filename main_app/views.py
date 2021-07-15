@@ -74,7 +74,7 @@ def unassoc_award(request, beer_id, award_id):
 
 class BeerCreate(CreateView):
     model = Beer
-    fields = '__all__'
+    fields = ['name', 'type', 'alcPercent', 'abuLevel', 'origin']
 
 class BeerUpdate(UpdateView):
     model = Beer
